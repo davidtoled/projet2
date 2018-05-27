@@ -1,0 +1,4 @@
+services:
+#    di_platform.example:
+#        class: DI\PlatformBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]

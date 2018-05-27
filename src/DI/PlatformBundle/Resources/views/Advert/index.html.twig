@@ -1,0 +1,10 @@
+{% extends "DIPlatformBundle::layout.html.twig" %}
+
+{% block diplatform_body %}
+    <h2>Liste des annonces</h2>
+    <ul>
+        <li><a href="{{ path('di_platform_view', { 'id': 1 }) }}">Annonce 1</a></li>
+        <li><a href="{{ path('di_platform_view', { 'id': 2 }) }}">Annonce 2</a></li>
+        <li><a href="{{ path('di_platform_view', { 'id': 3 }) }}">Annonce 3</a></li>
+    </ul>
+{% endblock %}

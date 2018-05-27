@@ -1,0 +1,13 @@
+di_platform_homepage:
+    path:     /
+    defaults: { _controller: DIPlatformBundle:Default:index }
+
+di_platform_view:
+    path:     /advert/{id}
+    defaults: { _controller: DIPlatformBundle:Default:view }
+    requirements:
+        id: \d+
+
+di_platform_add:
+    path:     /add
+    defaults: { _controller: DIPlatformBundle:Default:add }
