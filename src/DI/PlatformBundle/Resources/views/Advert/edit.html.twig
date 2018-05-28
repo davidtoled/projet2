@@ -1,14 +1,14 @@
 {% extends "DIPlatformBundle::layout.html.twig" %}
 
 {% block diplatform_body %}
-    <h2>Formulaire d'ajout</h2>
+    <h2>Formulaire de modification</h2>
 
     {{ include("DIPlatformBundle:Advert:form.html.twig") }}
 
     <div class="row">
-        <a class="btn btn-default" href="{{ path('di_platform_homepage') }}" role="button">
+        <a class="btn btn-default" href="{{ path('di_platform_view', {'id': idannonce}) }}" role="button">
             <i class="glyphicon glyphicon-chevron-left"></i>
-            Annuler et revenir à la liste
+            Annuler et revenir à l'annonce
         </a>
     </div>
 

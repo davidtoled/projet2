@@ -11,7 +11,16 @@ class DefaultController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('DIPlatformBundle:Advert:index.html.twig');
+        $listAdverts = array(
+            array('id' => 1, 'title' => 'Recherche developper Symfony', 'author' => 'Adrien', 'date' => new \Datetime()),
+            array('id' => 2, 'title' => 'Freelance front-end', 'author' => 'Adrien', 'date' => new \Datetime()),
+            array('id' => 3, 'title' => 'Recherche teacher-assistant', 'author' => 'Adrien', 'date' => new \Datetime()),
+            array('id' => 4, 'title' => 'Stagiaire en Informatique', 'author' => 'Adrien', 'date' => new \Datetime()),
+            array('id' => 5, 'title' => 'Developpeur PHP', 'author' => 'Adrien', 'date' => new \Datetime()),
+            array('id' => 6, 'title' => 'Recherche professeur chez Developpers Institute', 'author' => 'Adrien', 'date' => new \Datetime())
+        );
+
+        return $this->render('DIPlatformBundle:Advert:index.html.twig', array('listadverts' => $listAdverts));
     }
 
     public function addAction() {
@@ -40,6 +49,15 @@ class DefaultController extends Controller
 
         return $this->render('DIPlatformBundle:Advert:menu.html.twig', array('listadverts' => $listAdverts));
 
+    }
+
+    public function editAction($id) {
+        return $this->render('DIPlatformBundle:Advert:edit.html.twig',
+            array('idannonce' => $id));
+    }
+
+    public function deleteAction() {
+        return $this->render('DIPlatformBundle:Advert:index.html.twig');
     }
 
 

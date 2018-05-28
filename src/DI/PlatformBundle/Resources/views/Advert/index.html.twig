@@ -2,9 +2,17 @@
 
 {% block diplatform_body %}
     <h2>Liste des annonces</h2>
-    <ul>
-        <li><a href="{{ path('di_platform_view', { 'id': 1 }) }}">Annonce 1</a></li>
-        <li><a href="{{ path('di_platform_view', { 'id': 2 }) }}">Annonce 2</a></li>
-        <li><a href="{{ path('di_platform_view', { 'id': 3 }) }}">Annonce 3</a></li>
-    </ul>
+    <table class="table table-striped">
+        {% for advert in listadverts %}
+            <tr>
+                <td>
+                    <a href="{{ path('di_platform_view', {'id': advert.id}) }}">{{ advert.title }}</a>
+                </td>
+                <td>
+                    ajouté par {{ advert.author }}, le {{ advert.date|date('d/m/Y') }}
+                </td>
+
+            </tr>
+        {% endfor %}
+    </table>
 {% endblock %}

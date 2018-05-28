@@ -4,4 +4,19 @@
 
     Je suis en train de visualiser l'annonce n° {{ idannonce }}
 
+    <div class="row">
+        <a class="btn btn-default" href="{{ path('di_platform_homepage') }}" role="button">
+            <i class="glyphicon glyphicon-chevron-left"></i>
+            Retour à la liste
+        </a>
+        <a class="btn btn-default" href="{{ path('di_platform_edit', {'id': idannonce}) }}" role="button">
+            <i class="glyphicon glyphicon-edit"></i>
+            Modifier l'annonce
+        </a>
+        <a class="btn btn-danger" href="{{ path('di_platform_delete', {'id': idannonce}) }}" role="button">
+            <i class="glyphicon glyphicon-trash"></i>
+            Supprimer l'annonce
+        </a>
+    </div>
+
 {% endblock %}

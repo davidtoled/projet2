@@ -8,6 +8,18 @@ di_platform_view:
     requirements:
         id: \d+
 
+di_platform_edit:
+    path:     /edit/{id}
+    defaults: { _controller: DIPlatformBundle:Default:edit }
+    requirements:
+        id: \d+
+
+di_platform_delete:
+    path:     /delete/{id}
+    defaults: { _controller: DIPlatformBundle:Default:delete }
+    requirements:
+        id: \d+
+
 di_platform_add:
     path:     /add
     defaults: { _controller: DIPlatformBundle:Default:add }
