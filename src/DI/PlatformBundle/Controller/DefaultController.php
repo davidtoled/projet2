@@ -2,6 +2,7 @@
 
 namespace DI\PlatformBundle\Controller;
 
+use DI\PlatformBundle\Entity\Advert;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -34,8 +35,12 @@ class DefaultController extends Controller
 
     public function viewAction($id) {
 
+        $doctrine = $this->getDoctrine();
+        $em = $doctrine->getManager();
+        $advert = $em->getRepository('DIPlatformBundle:Advert')->find($id);
+
         return $this->render('DIPlatformBundle:Advert:view.html.twig',
-            array('idannonce' => $id));
+            array('advert' => $advert));
 
     }
 
