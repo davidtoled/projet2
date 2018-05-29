@@ -12,6 +12,7 @@ class DefaultController extends Controller
 {
     public function indexAction()
     {
+        /*
         $listAdverts = array(
             array('id' => 1, 'title' => 'Recherche developper Symfony', 'author' => 'Adrien', 'date' => new \Datetime()),
             array('id' => 2, 'title' => 'Freelance front-end', 'author' => 'Adrien', 'date' => new \Datetime()),
@@ -20,6 +21,12 @@ class DefaultController extends Controller
             array('id' => 5, 'title' => 'Developpeur PHP', 'author' => 'Adrien', 'date' => new \Datetime()),
             array('id' => 6, 'title' => 'Recherche professeur chez Developpers Institute', 'author' => 'Adrien', 'date' => new \Datetime())
         );
+        */
+        $listAdverts = $this->getDoctrine()
+                            ->getManager()
+                            ->getRepository('DIPlatformBundle:Advert')
+                            ->findAll();
+
 
         return $this->render('DIPlatformBundle:Advert:index.html.twig', array('listadverts' => $listAdverts));
     }
@@ -46,12 +53,17 @@ class DefaultController extends Controller
 
     public function menuAction() {
 
+        /*
         $listAdverts = array(
             array('id' => 1, 'title' => 'Recherche developper Symfony'),
             array('id' => 2, 'title' => 'Freelance front-end'),
             array('id' => 3, 'title' => 'Recherche teacher-assistant'),
         );
+        */
 
+        $doctrine = $this->getDoctrine();
+        $em = $doctrine->getManager();
+        $listAdverts = $em->getRepository('DIPlatformBundle:Advert')->findBy(array(), array('date'=>'desc'), 2, 0);
         return $this->render('DIPlatformBundle:Advert:menu.html.twig', array('listadverts' => $listAdverts));
 
     }
