@@ -49,6 +49,11 @@ class Advert
      */
     private $content;
 
+    /**
+    * @ORM\OneToOne(targetEntity="DI\PlatformBundle\Entity\Image", cascade={"persist"})
+    */
+    private $image;
+
 
     /**
      * Get id
@@ -155,5 +160,28 @@ class Advert
     {
         return $this->content;
     }
-}
 
+    /**
+     * Set image
+     *
+     * @param \DI\PlatformBundle\Entity\Image $image
+     *
+     * @return Advert
+     */
+    public function setImage(\DI\PlatformBundle\Entity\Image $image = null)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return \DI\PlatformBundle\Entity\Image
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+}

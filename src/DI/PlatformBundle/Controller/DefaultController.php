@@ -46,6 +46,7 @@ class DefaultController extends Controller
         $em = $doctrine->getManager();
         $advert = $em->getRepository('DIPlatformBundle:Advert')->find($id);
 
+
         return $this->render('DIPlatformBundle:Advert:view.html.twig',
             array('advert' => $advert));
 

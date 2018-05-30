@@ -2,10 +2,18 @@
 
 {% block diplatform_body %}
 
+
+    <div class="row" class="col-md-12">
+        <h2>{{ advert.title }}</h2>
+        Ajouté par {{ advert.author }}, le {{ advert.date|date('d/m/Y') }}
+    </div>
+    <br>
+    <img width="150px" src="{{ advert.image.url }}" alt="{{ advert.image.alt }}">
+
     <div class="row">
         {{ advert.content }}
     </div>
-
+    <br>
     <div class="row">
         <a class="btn btn-default" href="{{ path('di_platform_homepage') }}" role="button">
             <i class="glyphicon glyphicon-chevron-left"></i>
