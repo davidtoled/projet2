@@ -6,7 +6,7 @@
     {{ include("DIPlatformBundle:Advert:form.html.twig") }}
 
     <div class="row">
-        <a class="btn btn-default" href="{{ path('di_platform_view', {'id': idannonce}) }}" role="button">
+        <a class="btn btn-default" href="{{ path('di_platform_view', {'id': advert.id}) }}" role="button">
             <i class="glyphicon glyphicon-chevron-left"></i>
             Annuler et revenir à l'annonce
         </a>

@@ -14,6 +14,50 @@
         {{ advert.content }}
     </div>
     <br>
+    <h3>Candidatures pour ce poste</h3>
+    <div class="row">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Contenu</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for application in list_applications %}
+                    <tr>
+                        <td>{{ application.author }}</td>
+                        <td>{{ application.content }}</td>
+                        <td>{{ application.date|date('d/m/Y') }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <br>
+
+    <h3>Catégories du poste</h3>
+    <div class="row">
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>Catégorie</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for category in advert.categories %}
+                <tr>
+                    <td>{{ category.name }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <br>
+
     <div class="row">
         <a class="btn btn-default" href="{{ path('di_platform_homepage') }}" role="button">
             <i class="glyphicon glyphicon-chevron-left"></i>

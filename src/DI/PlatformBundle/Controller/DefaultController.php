@@ -3,6 +3,8 @@
 namespace DI\PlatformBundle\Controller;
 
 use DI\PlatformBundle\Entity\Advert;
+use DI\PlatformBundle\Entity\Application;
+use DI\PlatformBundle\Entity\Image;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,6 +34,38 @@ class DefaultController extends Controller
     }
 
     public function addAction() {
+
+        $advert = new Advert();
+        $advert->setTitle('Test avec Dina');
+        $advert->setAuthor('Dina');
+        $advert->setContent('Vive Dina');
+        $advert->setDate(new \DateTime());
+
+        $image = new Image();
+        $image->setUrl('https://thumbs.dreamstime.com/z/magen-david-%C3%A9cran-protecteur-de-david-15292440.jpg');
+        $image->setAlt('magen David');
+
+        $application1 = new Application();
+        $application1->setDate(new \Datetime());
+        $application1->setAuthor('Samuel');
+        $application1->setContent('Je suis hyper motivé');
+        $application1->setAdvert($advert);
+
+        $application2 = new Application();
+        $application2->setDate(new \Datetime());
+        $application2->setAuthor('Jonathan');
+        $application2->setContent('Je suis le plus fort');
+        $application2->setAdvert($advert);
+
+        $advert->setImage($image);
+
+        $em = $this->getDoctrine()->getManager();
+
+        $em->persist($advert);
+        $em->persist($application1);
+        $em->persist($application2);
+        $em->flush();
+
         //return new Response('Voici mon formulaire pour créer une annonce');
         return $this->render('DIPlatformBundle:Advert:add.html.twig',
             array("nomvariable1" => "contenuvariable 1",
@@ -42,13 +76,13 @@ class DefaultController extends Controller
 
     public function viewAction($id) {
 
-        $doctrine = $this->getDoctrine();
-        $em = $doctrine->getManager();
-        $advert = $em->getRepository('DIPlatformBundle:Advert')->find($id);
+        $em = $this->getDoctrine()->getManager();
 
+        $advert = $em->getRepository('DIPlatformBundle:Advert')->find($id);
+        $list_applications = $em->getRepository('DIPlatformBundle:Application')->findByAdvert($advert);
 
         return $this->render('DIPlatformBundle:Advert:view.html.twig',
-            array('advert' => $advert));
+            array('advert' => $advert, 'list_applications' => $list_applications));
 
     }
 
@@ -70,8 +104,22 @@ class DefaultController extends Controller
     }
 
     public function editAction($id) {
+
+        $em = $this->getDoctrine()->getManager();
+
+        $advert = $em->getRepository('DIPlatformBundle:Advert')->find($id);
+        $list_applications = $em->getRepository('DIPlatformBundle:Application')->findByAdvert($advert);
+        $list_categories = $em->getRepository('DIPlatformBundle:Category')->findAll();
+
+        foreach ($list_categories as $category) {
+            $advert->addCategory($category);
+        }
+
+        $em->flush();
+
         return $this->render('DIPlatformBundle:Advert:edit.html.twig',
-            array('idannonce' => $id));
+            array('advert' => $advert, 'list_applications'=>$list_applications,
+                'list_categories'=>$list_categories));
     }
 
     public function deleteAction() {
