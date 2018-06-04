@@ -59,6 +59,10 @@ class Advert
      */
     private $categories;
 
+    /**
+     * @ORM\OneToMany(targetEntity="DI\PlatformBundle\Entity\Application", mappedBy="advert")
+     */
+    private $applications;
 
 
     /**
@@ -196,6 +200,7 @@ class Advert
     public function __construct()
     {
         $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->applications = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -231,4 +236,44 @@ class Advert
     {
         return $this->categories;
     }
+
+
+    /**
+     * Add category
+     *
+     * @param \DI\PlatformBundle\Entity\Applicaions $application
+     *
+     * @return Advert
+     */
+    public function addApplication(\DI\PlatformBundle\Entity\Application $application)
+    {
+        $this->applications[] = $application;
+        $application->setAdvert($this);
+
+        return $this;
+    }
+
+    /**
+     * Remove application
+     *
+     * @param \DI\PlatformBundle\Entity\Application $application
+     */
+    public function removeApplications(\DI\PlatformBundle\Entity\Application $application)
+    {
+        $this->applications->removeElement($application);
+    }
+
+    /**
+     * Get applications
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getApplications()
+    {
+        return $this->applications;
+    }
+
+
+
+
 }

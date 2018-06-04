@@ -28,6 +28,8 @@ class DefaultController extends Controller
                             ->getManager()
                             ->getRepository('DIPlatformBundle:Advert')
                             ->findAll();
+                            //->myFindAll();
+                            //->myFindOne(2);
 
 
         return $this->render('DIPlatformBundle:Advert:index.html.twig', array('listadverts' => $listAdverts));
@@ -81,6 +83,12 @@ class DefaultController extends Controller
         $advert = $em->getRepository('DIPlatformBundle:Advert')->find($id);
         $list_applications = $em->getRepository('DIPlatformBundle:Application')->findByAdvert($advert);
 
+        //$list_adverts = $em->getRepository('DIPlatformBundle:Advert')->getAdvertWithApplications($id);
+/*
+        foreach ($list_adverts as $advert) {
+            $advert->getApplications();
+        }
+*/
         return $this->render('DIPlatformBundle:Advert:view.html.twig',
             array('advert' => $advert, 'list_applications' => $list_applications));
 
