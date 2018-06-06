@@ -64,6 +64,13 @@ class Advert
      */
     private $applications;
 
+    /**
+     * @var
+     * @ORM\Column(name="nb_applications", type="integer")
+     *
+     */
+    private $nbApplications;
+
 
     /**
      * Get id
@@ -273,6 +280,21 @@ class Advert
         return $this->applications;
     }
 
+    public function increaseApplication() {
+        $this->nbApplications++;
+    }
+
+    public function decreaseApplication() {
+        $this->nbApplications--;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNbApplications()
+    {
+        return $this->nbApplications;
+    }
 
 
 

@@ -2,3 +2,16 @@ services:
 #    di_platform.example:
 #        class: DI\PlatformBundle\Example
 #        arguments: ["@service_id", "plain_value", "%parameter%"]
+
+    di_platform.email.application_mailer:
+        class: DI\PlatformBundle\Email\ApplicationMailer
+        arguments:
+            - "@mailer"
+
+    di_platform.listener.application_creation:
+        class: DI\PlatformBundle\Email\ApplicationCreationListener
+        arguments:
+            - "@di_platform.email.application_mailer"
+        tags:
+            - { name: doctrine.event_listener, event: postPersist }
+

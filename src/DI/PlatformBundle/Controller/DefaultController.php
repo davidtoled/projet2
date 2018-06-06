@@ -39,7 +39,7 @@ class DefaultController extends Controller
 
         $advert = new Advert();
         $advert->setTitle('Test avec Dina');
-        $advert->setAuthor('Dina');
+        $advert->setAuthor('rebibo.adrien@gmail.com');
         $advert->setContent('Vive Dina');
         $advert->setDate(new \DateTime());
 
@@ -49,13 +49,13 @@ class DefaultController extends Controller
 
         $application1 = new Application();
         $application1->setDate(new \Datetime());
-        $application1->setAuthor('Samuel');
+        $application1->setAuthor('Toto');
         $application1->setContent('Je suis hyper motivé');
         $application1->setAdvert($advert);
 
         $application2 = new Application();
         $application2->setDate(new \Datetime());
-        $application2->setAuthor('Jonathan');
+        $application2->setAuthor('greenbergyoel@gmail.com');
         $application2->setContent('Je suis le plus fort');
         $application2->setAdvert($advert);
 
