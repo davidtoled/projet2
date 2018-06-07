@@ -10,11 +10,40 @@
     <body>
         <div class="container">
             <header id="header">
-                <h1>Platefome d'annonce</h1>
+                <h1>{{ "Platefome d'annonce"|trans }}</h1>
                 <p>
+                    {% trans %}
                     Bienvenue sur la plateforme collaborative de
                     Developer's Institute et TAL Business School
+                    {% endtrans %}
                 </p>
+
+                {% set actualLangue = app.request.locale %}
+
+                <ul class="lang-menu">
+                    <li>
+                        {% if actualLangue == 'fr' %}
+                            Français
+                        {% else %}
+                            <a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'fr'})) }}">Français</a>
+                        {% endif %}
+                    </li>
+                    <li>
+                        {% if actualLangue == 'en' %}
+                            English
+                        {% else %}
+                            <a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'en'})) }}">English</a>
+                        {% endif %}
+                    </li>
+                    <li>
+                        {% if actualLangue == 'ru' %}
+                            Russe
+                        {% else %}
+                            <a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'ru'})) }}">Russe</a>
+                        {% endif %}
+                    </li>
+                </ul>
+
             </header>
             <div class="row">
                 <div id="menu" class="col-md-3">

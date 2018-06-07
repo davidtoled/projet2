@@ -38,7 +38,7 @@
 
     <br>
 
-    <h3>Catégories du poste</h3>
+    <h3>{{ "Catégories du poste"|trans }}</h3>
     <div class="row">
         <table class="table table-bordered table-striped">
             <thead>
@@ -61,15 +61,15 @@
     <div class="row">
         <a class="btn btn-default" href="{{ path('di_platform_homepage') }}" role="button">
             <i class="glyphicon glyphicon-chevron-left"></i>
-            Retour à la liste
+            {{ "Retour à la liste"|trans }}
         </a>
         <a class="btn btn-default" href="{{ path('di_platform_edit', {'id': advert.id}) }}" role="button">
             <i class="glyphicon glyphicon-edit"></i>
-            Modifier l'annonce
+            {{ "Modifier l'annonce"|trans }}
         </a>
         <a class="btn btn-danger" href="{{ path('di_platform_delete', {'id': advert.id}) }}" role="button">
             <i class="glyphicon glyphicon-trash"></i>
-            Supprimer l'annonce
+            {{ "Supprimer l'annonce"|trans }}
         </a>
     </div>
 

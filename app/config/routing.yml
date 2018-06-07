@@ -2,7 +2,7 @@ di_platform:
     resource: "@DIPlatformBundle/Resources/config/routing.yml"
     prefix:   /{_locale}/platform
     requirements:
-        _locale: en|fr
+        _locale: en|fr|ru
 
 app:
     resource: '@AppBundle/Controller/'

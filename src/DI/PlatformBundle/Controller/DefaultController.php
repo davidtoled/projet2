@@ -6,6 +6,11 @@ use DI\PlatformBundle\Entity\Advert;
 use DI\PlatformBundle\Entity\Application;
 use DI\PlatformBundle\Entity\Image;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -38,6 +43,18 @@ class DefaultController extends Controller
     public function addAction() {
 
         $advert = new Advert();
+        $formBuilder = $this->get('form.factory')->createBuilder(FormType::class, $advert);
+        $formBuilder
+            ->add('date', DateType::class)
+            ->add('title', TextType::class)
+            ->add('content', textareaType::class)
+            ->add('author', TextType::class)
+            ->add('save', SubmitType::class);
+
+        $form = $formBuilder->getForm();
+
+        /*
+        $advert = new Advert();
         $advert->setTitle('Test avec Dina');
         $advert->setAuthor('rebibo.adrien@gmail.com');
         $advert->setContent('Vive Dina');
@@ -68,11 +85,16 @@ class DefaultController extends Controller
         $em->persist($application2);
         $em->flush();
 
+        */
+
+        $translator = $this->get('translator');
+        $messagesuccess = $translator->trans('Votre annonce a bien été enregistrée');
+        $this->addFlash('success', $messagesuccess);
+
+
         //return new Response('Voici mon formulaire pour créer une annonce');
         return $this->render('DIPlatformBundle:Advert:add.html.twig',
-            array("nomvariable1" => "contenuvariable 1",
-                "nomvariable2" => "contenuvariable 2"
-            )
+            array('formulaire' => $form->createView())
         );
     }
 
