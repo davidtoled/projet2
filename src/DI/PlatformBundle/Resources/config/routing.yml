@@ -23,3 +23,13 @@ di_platform_delete:
 di_platform_add:
     path:     /add
     defaults: { _controller: DIPlatformBundle:Default:add }
+
+toto:
+    path:     /toto
+    defaults: { _controller: DIPlatformBundle:Default:toto }
+
+detailuser:
+    path:     /detailuser/{id}
+    defaults: { _controller: DIPlatformBundle:Default:detailuser }
+    requirements:
+            id: \d+

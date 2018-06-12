@@ -3,3 +3,8 @@
 'Modifier l''annonce': '__Modifier l''annonce'
 'Supprimer l''annonce': '__Supprimer l''annonce'
 Annonces: __Annonces
+Nom: RusseNom
+Prenom: RussePrenom
+Email: Vodka
+'save.ok': 'Advert correctly saved [RUSSE]'
+'save.nok': 'pas ok [RUSSE]'

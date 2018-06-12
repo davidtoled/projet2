@@ -72,6 +72,7 @@ class Advert
     private $nbApplications;
 
 
+
     /**
      * Get id
      *
@@ -206,6 +207,7 @@ class Advert
      */
     public function __construct()
     {
+        $this->date = new \Datetime();
         $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
         $this->applications = new \Doctrine\Common\Collections\ArrayCollection();
     }
@@ -287,6 +289,16 @@ class Advert
     public function decreaseApplication() {
         $this->nbApplications--;
     }
+
+    /**
+     * @param mixed $nbApplications
+     */
+    public function setNbApplications($nbApplications)
+    {
+        $this->nbApplications = $nbApplications;
+    }
+
+
 
     /**
      * @return mixed

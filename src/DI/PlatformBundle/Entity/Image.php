@@ -3,6 +3,7 @@
 namespace DI\PlatformBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * Image
@@ -34,6 +35,8 @@ class Image
      * @ORM\Column(name="alt", type="string", length=255)
      */
     private $alt;
+
+    private $file;
 
 
     /**
@@ -93,5 +96,37 @@ class Image
     {
         return $this->alt;
     }
-}
 
+    /**
+     * @return mixed
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    /**
+     * @param mixed $file
+     */
+    public function setFile(UploadedFile $file=null)
+    {
+        $this->file = $file;
+    }
+
+    public function upload() {
+        $name = $this->file->getClientOriginalName();
+        $this->file->move($this->getUploadRootDir(), $name);
+
+        $this->url = $name;
+        $this->alt = $name;
+    }
+
+    public function getUploadRootDir() {
+        return __DIR__.'';
+    }
+
+
+
+
+
+}

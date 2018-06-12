@@ -5,7 +5,10 @@ namespace DI\PlatformBundle\Controller;
 use DI\PlatformBundle\Entity\Advert;
 use DI\PlatformBundle\Entity\Application;
 use DI\PlatformBundle\Entity\Image;
+use DI\PlatformBundle\Entity\User;
+use DI\PlatformBundle\Form\AdvertType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -40,18 +43,7 @@ class DefaultController extends Controller
         return $this->render('DIPlatformBundle:Advert:index.html.twig', array('listadverts' => $listAdverts));
     }
 
-    public function addAction() {
-
-        $advert = new Advert();
-        $formBuilder = $this->get('form.factory')->createBuilder(FormType::class, $advert);
-        $formBuilder
-            ->add('date', DateType::class)
-            ->add('title', TextType::class)
-            ->add('content', textareaType::class)
-            ->add('author', TextType::class)
-            ->add('save', SubmitType::class);
-
-        $form = $formBuilder->getForm();
+    public function addAction(Request $request) {
 
         /*
         $advert = new Advert();
@@ -87,9 +79,30 @@ class DefaultController extends Controller
 
         */
 
-        $translator = $this->get('translator');
-        $messagesuccess = $translator->trans('Votre annonce a bien été enregistrée');
-        $this->addFlash('success', $messagesuccess);
+        $advert = new Advert();
+
+        $form = $this->get('form.factory')->create(AdvertType::class, $advert);
+
+        if ($request->isMethod('POST')) {
+
+            $form->handleRequest($request);
+
+            if ($form->isValid()) {
+                $advert->setNbApplications(0);
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($advert);
+                $em->flush();
+
+                $translator = $this->get('translator');
+                $messagesuccess = $translator->trans('save.ok');
+                $this->addFlash('success', $messagesuccess);
+
+                return $this->redirectToRoute('di_platform_view', array('id' => $advert->getId()));
+            }
+
+        }
+
+
 
 
         //return new Response('Voici mon formulaire pour créer une annonce');
@@ -156,5 +169,45 @@ class DefaultController extends Controller
         return $this->render('DIPlatformBundle:Advert:index.html.twig');
     }
 
+    public function totoAction(Request $request) {
+
+        $user = new User();
+        $formBuilder = $this->get('form.factory')->createBuilder(FormType::class, $user);
+        $formBuilder
+            ->add('nom', TextType::class)
+            ->add('prenom', textType::class)
+            ->add('email', TextType::class)
+            ->add('save', SubmitType::class);
+
+        $form = $formBuilder->getForm();
+
+
+        if ($request->isMethod('POST')) {
+
+            $form->handleRequest($request);
+
+            if ($form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($user);
+                $em->flush();
+
+                $translator = $this->get('translator');
+                $messagesuccess = $translator->trans('Votre utilisateur a bien été enregistrée');
+                $this->addFlash('success', $messagesuccess);
+            }
+
+        }
+
+        $users = $this->getDoctrine()->getManager()->getRepository('DIPlatformBundle:User')->findAll();
+
+        return $this->render('DIPlatformBundle:David:toto.html.twig',
+            array('formulaire' => $form->createView(), 'users' => $users));
+    }
+
+    public function detailuserAction($id) {
+        $user = $this->getDoctrine()->getManager()->getRepository('DIPlatformBundle:User')->find($id);
+        return $this->render('DIPlatformBundle:David:detailuser.html.twig',
+            array('user' => $user));
+    }
 
 }

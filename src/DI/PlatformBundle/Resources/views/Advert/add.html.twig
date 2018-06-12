@@ -2,18 +2,7 @@
 
 {% block diplatform_body %}
     <h2>Formulaire d'ajout</h2>
-
-
-    {% for label, messages in app.flashes(['success', 'info']) %}
-        {% for message in messages %}
-            <div class="alert alert-{{ label }}">
-                {{ message }}
-            </div>
-        {% endfor %}
-    {% endfor %}
-
-
-
+    
 
     {{ include("DIPlatformBundle:Advert:form.html.twig") }}
 
