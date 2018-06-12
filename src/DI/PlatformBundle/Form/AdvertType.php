@@ -2,7 +2,10 @@
 
 namespace DI\PlatformBundle\Form;
 
+use DI\PlatformBundle\Entity\Category;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -18,11 +21,22 @@ class AdvertType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('date', DateType::class)
             ->add('title', TextType::class)
             ->add('author', TextType::class)
             ->add('content', textareaType::class)
             ->add('image', ImageType::class)
+/*            ->add('categories', CollectionType::class, array(
+                'entry_type' => CategoryType::class,
+                'allow_add' => true,
+                'allow_delete' => true
+            ))
+*/
+            ->add('categories', EntityType::class, array(
+                'class' => 'DIPlatformBundle:Category',
+                'choice_label' => 'name',
+                'multiple' => true,
+                'expanded' => true
+            ))
             ->add('save', SubmitType::class);
     }/**
      * {@inheritdoc}

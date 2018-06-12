@@ -45,40 +45,6 @@ class DefaultController extends Controller
 
     public function addAction(Request $request) {
 
-        /*
-        $advert = new Advert();
-        $advert->setTitle('Test avec Dina');
-        $advert->setAuthor('rebibo.adrien@gmail.com');
-        $advert->setContent('Vive Dina');
-        $advert->setDate(new \DateTime());
-
-        $image = new Image();
-        $image->setUrl('https://thumbs.dreamstime.com/z/magen-david-%C3%A9cran-protecteur-de-david-15292440.jpg');
-        $image->setAlt('magen David');
-
-        $application1 = new Application();
-        $application1->setDate(new \Datetime());
-        $application1->setAuthor('Toto');
-        $application1->setContent('Je suis hyper motivé');
-        $application1->setAdvert($advert);
-
-        $application2 = new Application();
-        $application2->setDate(new \Datetime());
-        $application2->setAuthor('greenbergyoel@gmail.com');
-        $application2->setContent('Je suis le plus fort');
-        $application2->setAdvert($advert);
-
-        $advert->setImage($image);
-
-        $em = $this->getDoctrine()->getManager();
-
-        $em->persist($advert);
-        $em->persist($application1);
-        $em->persist($application2);
-        $em->flush();
-
-        */
-
         $advert = new Advert();
 
         $form = $this->get('form.factory')->create(AdvertType::class, $advert);
@@ -89,6 +55,9 @@ class DefaultController extends Controller
 
             if ($form->isValid()) {
                 $advert->setNbApplications(0);
+
+                $advert->getImage()->upload();
+
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($advert);
                 $em->flush();

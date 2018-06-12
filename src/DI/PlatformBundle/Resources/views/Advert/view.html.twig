@@ -20,7 +20,7 @@
         Ajouté par {{ advert.author }}, le {{ advert.date|date('d/m/Y') }}
     </div>
     <br>
-    <img width="150px" src="{{ advert.image.url }}" alt="{{ advert.image.alt }}">
+    <img width="150px" src="{{ asset(advert.image.ImgPath) }}" alt="{{ advert.image.alt }}">
 
     <div class="row">
         {{ advert.content }}

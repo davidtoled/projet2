@@ -115,16 +115,15 @@ class Image
 
     public function upload() {
         $name = $this->file->getClientOriginalName();
-        $this->file->move($this->getUploadRootDir(), $name);
+        $this->file->move(__DIR__.'../../../../../web/uploads/img', $name);
 
         $this->url = $name;
         $this->alt = $name;
     }
 
-    public function getUploadRootDir() {
-        return __DIR__.'';
+    public function getImgPath() {
+        return 'uploads/img/'.$this->getUrl();
     }
-
 
 
 
