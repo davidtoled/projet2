@@ -11,12 +11,13 @@ namespace DI\PlatformBundle\Repository;
 class AdvertRepository extends \Doctrine\ORM\EntityRepository
 {
 
-    /*
+
     public function myFindAll() {
         // equivalent de SELECT * FROM Advert
-        return $this->createQueryBuilder('a')->getQuery()->getResult();
+        return $this->createQueryBuilder('a')->getQuery();
     }
 
+    /*
     public function myFindOne($id) {
         // 'SELECT * FROM Advert a WHERE a.id = '.$id;
         $qb = $this->createQueryBuilder('a');

@@ -1,6 +1,8 @@
 di_platform_homepage:
-    path:     /
-    defaults: { _controller: DIPlatformBundle:Default:index }
+    path:     /{page}
+    defaults: { _controller: DIPlatformBundle:Default:index, page: 1 }
+    requirements:
+        page: \d*
 
 di_platform_view:
     path:     /advert/{id}

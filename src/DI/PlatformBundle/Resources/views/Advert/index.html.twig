@@ -1,9 +1,11 @@
 {% extends "DIPlatformBundle::layout.html.twig" %}
 
 {% block diplatform_body %}
-    <h2>Liste des annonces</h2>
+    <h2>Liste des annonces ({{ pagination.getTotalItemCount }})</h2>
+
+
     <table class="table table-striped">
-        {% for advert in listadverts %}
+        {% for advert in pagination %}
             <tr>
                 <td>
                     <a href="{{ path('di_platform_view', {'id': advert.id}) }}">{{ advert.title }}</a>
@@ -15,4 +17,9 @@
             </tr>
         {% endfor %}
     </table>
+
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+
 {% endblock %}

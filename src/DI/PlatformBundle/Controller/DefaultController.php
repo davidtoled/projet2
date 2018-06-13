@@ -6,6 +6,7 @@ use DI\PlatformBundle\Entity\Advert;
 use DI\PlatformBundle\Entity\Application;
 use DI\PlatformBundle\Entity\Image;
 use DI\PlatformBundle\Entity\User;
+use DI\PlatformBundle\Form\AdvertEditType;
 use DI\PlatformBundle\Form\AdvertType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
@@ -20,27 +21,27 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class DefaultController extends Controller
 {
-    public function indexAction()
+    public function indexAction($page, Request $request)
     {
-        /*
-        $listAdverts = array(
-            array('id' => 1, 'title' => 'Recherche developper Symfony', 'author' => 'Adrien', 'date' => new \Datetime()),
-            array('id' => 2, 'title' => 'Freelance front-end', 'author' => 'Adrien', 'date' => new \Datetime()),
-            array('id' => 3, 'title' => 'Recherche teacher-assistant', 'author' => 'Adrien', 'date' => new \Datetime()),
-            array('id' => 4, 'title' => 'Stagiaire en Informatique', 'author' => 'Adrien', 'date' => new \Datetime()),
-            array('id' => 5, 'title' => 'Developpeur PHP', 'author' => 'Adrien', 'date' => new \Datetime()),
-            array('id' => 6, 'title' => 'Recherche professeur chez Developpers Institute', 'author' => 'Adrien', 'date' => new \Datetime())
-        );
-        */
-        $listAdverts = $this->getDoctrine()
+
+        if ($page < 1) {
+            throw $this->createNotFoundException("La page ".$page." n'existe pas");
+        }
+
+        $query = $this->getDoctrine()
                             ->getManager()
                             ->getRepository('DIPlatformBundle:Advert')
-                            ->findAll();
-                            //->myFindAll();
+                            ->myFindAll();
                             //->myFindOne(2);
 
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query, /* query NOT result */
+            $request->query->getInt('page', $page),
+            10/*limit per page*/
+        );
 
-        return $this->render('DIPlatformBundle:Advert:index.html.twig', array('listadverts' => $listAdverts));
+        return $this->render('DIPlatformBundle:Advert:index.html.twig', array('pagination' => $pagination));
     }
 
     public function addAction(Request $request) {
@@ -123,15 +124,19 @@ class DefaultController extends Controller
         $list_applications = $em->getRepository('DIPlatformBundle:Application')->findByAdvert($advert);
         $list_categories = $em->getRepository('DIPlatformBundle:Category')->findAll();
 
+        $form = $this->get('form.factory')->create(AdvertEditType::class, $advert);
+
+        /*
         foreach ($list_categories as $category) {
             $advert->addCategory($category);
         }
+        */
 
-        $em->flush();
+        //$em->flush();
 
         return $this->render('DIPlatformBundle:Advert:edit.html.twig',
             array('advert' => $advert, 'list_applications'=>$list_applications,
-                'list_categories'=>$list_categories));
+                'list_categories'=>$list_categories, 'formulaire' => $form->createView()));
     }
 
     public function deleteAction() {
