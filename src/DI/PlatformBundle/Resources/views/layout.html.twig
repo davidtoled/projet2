@@ -4,6 +4,14 @@
     Annonce - {{ parent() }}
 {% endblock %}
 
+
+
+{% block infosuser %}
+    {{ app.user.username }}
+{% endblock %}
+
+
+
 {% block body %}
     <h1>{{"Annonces"|trans}}</h1>
     <hr>

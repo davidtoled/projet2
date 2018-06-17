@@ -12,8 +12,13 @@
             <header id="header">
                 <h1>{{ "Platefome d'annonce"|trans }}</h1>
                 <p>
+
+                    {{ 'Bienvenue'|trans  }}
+
+                    {% block infosuser %}{% endblock %}
+
                     {% trans %}
-                    Bienvenue sur la plateforme collaborative de
+                    sur la plateforme collaborative de
                     Developer's Institute et TAL Business School
                     {% endtrans %}
                 </p>
@@ -50,7 +55,9 @@
                     <h3>Menu</h3>
                     <ul>
                         <li><a href="{{ url('di_platform_homepage') }}">Accueil</a></li>
-                        <li><a href="{{ url('di_platform_add') }}">Créer une annonce</a></li>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <li><a href="{{ url('di_platform_add') }}">Créer une annonce</a></li>
+                        {% endif %}
                     </ul>
 
                     <h4>Dernières annonces</h4>

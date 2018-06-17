@@ -4,6 +4,7 @@ namespace DI\PlatformBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Image
@@ -36,8 +37,10 @@ class Image
      */
     private $alt;
 
+    /**
+     * @Assert\Image()
+     */
     private $file;
-
 
     /**
      * Get id
@@ -115,7 +118,7 @@ class Image
 
     public function upload() {
         $name = $this->file->getClientOriginalName();
-        $this->file->move(__DIR__.'../../../../../web/uploads/img', $name);
+        $this->file->move(__DIR__.'/../../../../web/uploads/img', $name);
 
         $this->url = $name;
         $this->alt = $name;

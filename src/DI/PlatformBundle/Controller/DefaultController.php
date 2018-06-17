@@ -18,15 +18,18 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class DefaultController extends Controller
 {
     public function indexAction($page, Request $request)
     {
 
+        /*
         if ($page < 1) {
             throw $this->createNotFoundException("La page ".$page." n'existe pas");
         }
+        */
 
         $query = $this->getDoctrine()
                             ->getManager()
@@ -44,6 +47,9 @@ class DefaultController extends Controller
         return $this->render('DIPlatformBundle:Advert:index.html.twig', array('pagination' => $pagination));
     }
 
+    /**
+     * @Security("has_role('ROLE_ADMIN')")
+     */
     public function addAction(Request $request) {
 
         $advert = new Advert();

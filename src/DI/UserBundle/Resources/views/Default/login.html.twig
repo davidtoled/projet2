@@ -1,0 +1,52 @@
+{% extends "::layout.html.twig" %}
+
+{% block title %}
+    Login - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <h1>{{"Connexion"|trans}}</h1>
+    <hr>
+
+    {% if error %}
+        <div class="alert alert-danger">{{ error.message }}</div>
+    {% endif %}
+
+    <form class="form-horizontal" action="{{ path('login_check') }}" method="post">
+        <fieldset>
+
+            <!-- Form Name -->
+            <legend>Formulaire de connexion</legend>
+
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="login">Login</label>
+                <div class="col-md-4">
+                    <input id="username" name="_username" type="text" placeholder="" class="form-control input-md" required="">
+
+                </div>
+            </div>
+
+            <!-- Password input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="password">Mot de passe</label>
+                <div class="col-md-4">
+                    <input id="password" name="_password" type="password" placeholder="" class="form-control input-md" required="">
+
+                </div>
+            </div>
+
+            <!-- Button -->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="connexion"></label>
+                <div class="col-md-4">
+                    <button id="connexion" name="connexion" class="btn btn-primary">Connexion</button>
+                </div>
+            </div>
+
+        </fieldset>
+    </form>
+
+
+
+{% endblock %}
