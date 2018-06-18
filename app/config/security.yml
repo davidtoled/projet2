@@ -3,6 +3,7 @@
 security:
     encoders:
         Symfony\Component\Security\Core\User\User: plaintext
+        DI\UserBundle\Entity\User: sha512
 
     role_hierarchy:
         #ROLE_ADMIN:       ROLE_USER
@@ -16,11 +17,14 @@ security:
 
     # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
-        in_memory:
-            memory:
-                users:
-                    user:  { password: userpass, roles: [ 'ROLE_USER' ] }
-                    admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
+        #in_memory:
+        #    memory:
+        #        users:
+        #            user:  { password: userpass, roles: [ 'ROLE_USER' ] }
+        #            admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
+        main:
+            id: fos_user.user_provider.username
+
 
 
     firewalls:
@@ -30,6 +34,7 @@ security:
             # Cette expression régulière permet de prendre /login (mais pas /login_check !)
             pattern:   ^/login$
             anonymous: true # On autorise alors les anonymes sur ce pare-feu
+            provider: main
 
 
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -47,6 +52,8 @@ security:
             logout:
                 path:       logout
                 target:     login
+            provider: main
+
             #anonymous: ~
             # activate different ways to authenticate
 
