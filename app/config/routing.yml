@@ -12,13 +12,16 @@ app:
     resource: '@AppBundle/Controller/'
     type: annotation
 
-login:
-    path: /login
-    defaults:
-        _controller: DIUserBundle:Security:login
+#login:
+#    path: /login
+#    defaults:
+#        _controller: DIUserBundle:Security:login
 
-login_check:
-    path: /login_check
+#login_check:
+#    path: /login_check
 
-logout:
-    path: /logout
+#logout:
+#    path: /logout
+
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
