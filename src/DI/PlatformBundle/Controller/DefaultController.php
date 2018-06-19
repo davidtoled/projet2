@@ -145,8 +145,14 @@ class DefaultController extends Controller
                 'list_categories'=>$list_categories, 'formulaire' => $form->createView()));
     }
 
-    public function deleteAction() {
-        return $this->render('DIPlatformBundle:Advert:index.html.twig');
+    public function deleteAction(Advert $advert) {
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($advert);
+        $em->flush();
+
+        $this->addFlash('success', 'Annonce bien supprimée');
+
+        return $this->redirectToRoute('di_platform_homepage');
     }
 
 

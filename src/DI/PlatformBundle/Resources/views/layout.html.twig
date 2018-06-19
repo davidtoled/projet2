@@ -16,6 +16,14 @@
     <h1>{{"Annonces"|trans}}</h1>
     <hr>
 
+    {% for label, messages in app.flashes(['success', 'info']) %}
+        {% for message in messages %}
+            <div class="alert alert-{{ label }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+
     {% block diplatform_body %}
     {% endblock %}
 

@@ -2,19 +2,6 @@
 
 {% block diplatform_body %}
 
-
-    {% for label, messages in app.flashes(['success', 'info']) %}
-        {% for message in messages %}
-            <div class="alert alert-{{ label }}">
-                {{ message }}
-            </div>
-        {% endfor %}
-    {% endfor %}
-
-
-
-
-
     <div class="row" class="col-md-12">
         <h2>{{ advert.title }}</h2>
         Ajouté par {{ advert.author }}, le {{ advert.date|date('d/m/Y') }}
