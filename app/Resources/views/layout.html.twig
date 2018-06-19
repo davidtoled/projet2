@@ -10,16 +10,25 @@
     <body>
         <div class="container">
             <header id="header">
+
+                <span style="float:right">
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+
+                        Connecté en tant que {{ app.user.username }}
+                        -
+                        <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+
+                {% else %}
+                    <a href="{{ path('fos_user_security_login') }}">Connexion</a>
+                {% endif %}
+                </span>
+
                 <h1>{{ "Platefome d'annonce"|trans }}</h1>
                 <p>
 
-                    {{ 'Bienvenue'|trans  }}
-
-                    {% block infosuser %}{% endblock %}
-
                     {% trans %}
-                    sur la plateforme collaborative de
-                    Developer's Institute et TAL Business School
+                        Bienvenue sur la plateforme collaborative de
+                        Developer's Institute et TAL Business School
                     {% endtrans %}
                 </p>
 

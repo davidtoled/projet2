@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class SecurityController extends Controller
 {
 
+    /*
     public function loginAction() {
 
         if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
@@ -21,5 +22,6 @@ class SecurityController extends Controller
         ));
 
     }
+    */
 
 }
