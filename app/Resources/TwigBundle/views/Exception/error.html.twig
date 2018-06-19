@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Erreur {{ status_text }} - Developper's Institute</title>
+    {% block stylesheets %}
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    {% endblock %}
+</head>
+<body>
+<div class="container">
+    <header id="header">
+
+                <span style="float:right">
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+
+                    Connecté en tant que {{ app.user.username }}
+                    -
+                    <a href="{{ path('fos_user_profile_edit') }}">Mon compte</a>
+
+                        -
+                        <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+
+                {% else %}
+                    <a href="{{ path('fos_user_security_login') }}">Connexion</a>
+                    -
+                    <a href="{{ path('fos_user_registration_register') }}">Se créer un compte</a>
+                {% endif %}
+                </span>
+
+        <h1>Platefome d'annonce</h1>
+        <p>
+
+                Bienvenue sur la plateforme collaborative de
+                Developer's Institute et TAL Business School
+
+        </p>
+
+    </header>
+    <div class="row">
+        <div id="menu" class="col-md-3">
+            <h3>Menu</h3>
+            <ul>
+                <li><a href="{{ url('di_platform_homepage') }}">Accueil</a></li>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <li><a href="{{ url('di_platform_add') }}">Créer une annonce</a></li>
+                {% endif %}
+            </ul>
+
+            <h4>Dernières annonces</h4>
+            {{ render(controller('DIPlatformBundle:Default:menu')) }}
+        </div>
+        <div id="content" class="col-md-9">
+            <h1>Oops! An Error Occurred</h1>
+            <h2>The server returned a "{{ status_code }} {{ status_text }}".</h2>
+        </div>
+    </div>
+
+    <hr>
+
+    <footer>
+        <p>Copyright Developer's Institute {{ 'now'|date('Y') }}</p>
+    </footer>
+
+</div>
+
+{% block javascript %}
+
+{% endblock %}
+
+</body>
+</html>
+
