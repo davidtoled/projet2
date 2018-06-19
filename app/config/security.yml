@@ -30,14 +30,8 @@ security:
     firewalls:
 
         main_register:
-            pattern: ^/register
+            pattern: ^/register|^/resetting|^/login$
             anonymous: true
-
-        # On crée un pare-feu uniquement pour le formulaire
-        main_login:
-            # Cette expression régulière permet de prendre /login (mais pas /login_check !)
-            pattern:   ^/login$
-            anonymous: true # On autorise alors les anonymes sur ce pare-feu
 
 
         # disables authentication for assets and the profiler, adapt it according to your needs
